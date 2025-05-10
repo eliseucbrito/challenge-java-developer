@@ -1,6 +1,6 @@
-package br.com.neurotech.challenge.exceptions.common;
+package br.com.neurotech.challenge.exception.common;
 
-import br.com.neurotech.challenge.exceptions.BusinessException;
+import br.com.neurotech.challenge.exception.BusinessException;
 
 public class ResourceNotFoundException extends BusinessException {
   public ResourceNotFoundException(String resourceType, String identifier) {

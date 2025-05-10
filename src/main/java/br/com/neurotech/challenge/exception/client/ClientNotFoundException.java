@@ -1,6 +1,6 @@
-package br.com.neurotech.challenge.exceptions.client;
+package br.com.neurotech.challenge.exception.client;
 
-import br.com.neurotech.challenge.exceptions.common.ResourceNotFoundException;
+import br.com.neurotech.challenge.exception.common.ResourceNotFoundException;
 
 public class ClientNotFoundException extends ResourceNotFoundException {
   public ClientNotFoundException(String identifier) {

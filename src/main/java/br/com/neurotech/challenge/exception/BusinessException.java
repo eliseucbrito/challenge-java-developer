@@ -1,4 +1,4 @@
-package br.com.neurotech.challenge.exceptions;
+package br.com.neurotech.challenge.exception;
 
 public abstract class BusinessException extends RuntimeException {
   private final String code;
