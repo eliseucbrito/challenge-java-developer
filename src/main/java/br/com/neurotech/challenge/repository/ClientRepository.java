@@ -1,4 +1,4 @@
-package br.com.neurotech.challenge.repositories;
+package br.com.neurotech.challenge.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
