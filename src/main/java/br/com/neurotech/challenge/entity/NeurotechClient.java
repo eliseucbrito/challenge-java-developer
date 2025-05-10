@@ -9,13 +9,15 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Data
+@EqualsAndHashCode(callSuper = true)
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity(name = "neurotech_clients")
-public class NeurotechClient {
+public class NeurotechClient extends Auditable {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,4 +28,5 @@ public class NeurotechClient {
   private Integer age;
   @Positive(message = "The income must be positive")
   private Double income;
+
 }
