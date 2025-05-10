@@ -25,7 +25,8 @@ public class ClientService implements IClientService {
     return this.clientRepository.findById(id);
   }
 
-  public NeurotechClient getByIdOrThrow(long id) {
+  @Override
+  public NeurotechClient getByIdOrThrow(long id) throws ClientNotFoundException {
     return this.clientRepository.findById(id).orElseThrow(() -> new ClientNotFoundException(Long.toString(id)));
   }
 
