@@ -24,9 +24,8 @@
 
 	<contributors>
 		<contributor>
-			<!-- Preencha com seus próprios dados quando fizer o fork -->
-			<name>Nome do candidato</name>
-			<email>email@candidato.com</email>
+			<name>Eliseu Cordeiro de Brito</name>
+			<email>eliseubrito776@gmail.com</email>
 		</contributor>
 	</contributors>
 
@@ -52,6 +51,19 @@
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 			<scope>provided</scope>
+		</dependency>
+		<dependency>
+		  <groupId>org.hibernate.validator</groupId>
+		  <artifactId>hibernate-validator</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<scope>runtime</scope>
 		</dependency>
 	</dependencies>
 
