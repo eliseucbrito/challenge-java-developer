@@ -1,6 +1,7 @@
 package br.com.neurotech.challenge.entity.AutomotiveCredit;
 
 import br.com.neurotech.challenge.entity.CreditDetails;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -19,13 +20,15 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Entity
 @Table(name = "automotive_credits")
+@Schema(name = "AutomotiveCredit", description = "Defines credit eligibility criteria for a particular vehicle model")
 public class AutomotiveCredit extends CreditDetails {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Schema(description = "Unique identifier of the automotive credit rule", example = "1", accessMode = Schema.AccessMode.READ_ONLY)
   private Long id;
 
   @NotNull(message = "The vehicle model must not be null")
-  @Column(name = "vehicle_model", unique = true, nullable = false)
+  @Column(name = "vehicle_model", nullable = false)
   @Enumerated(EnumType.STRING)
   private VehicleModel vehicleModel;
 

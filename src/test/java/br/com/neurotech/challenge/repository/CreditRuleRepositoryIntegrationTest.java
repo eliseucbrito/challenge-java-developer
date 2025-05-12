@@ -23,8 +23,8 @@ class AutomotiveCreditRepositoryIntegrationTest {
   void setup() {
     repo.deleteAll();
 
-    repo.save(new AutomotiveCredit(null, VehicleModel.HATCH, 1000.0, 5000.0, 18, 30));
-    repo.save(new AutomotiveCredit(null, VehicleModel.SUV, 3000.0, 8000.0, 20, 50));
+    repo.save(new AutomotiveCredit(1L, VehicleModel.HATCH, 1000.0, 5000.0, 18, 30));
+    repo.save(new AutomotiveCredit(2L, VehicleModel.SUV, 3000.0, 8000.0, 20, 50));
   }
 
   @Test

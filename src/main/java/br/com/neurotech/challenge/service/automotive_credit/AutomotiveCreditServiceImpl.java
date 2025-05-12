@@ -13,18 +13,14 @@ import br.com.neurotech.challenge.entity.AutomotiveCredit.VehicleModel;
 import br.com.neurotech.challenge.exception.common.ConflitException;
 import br.com.neurotech.challenge.exception.credit.AutomotiveCreditNotFoundException;
 import br.com.neurotech.challenge.repository.AutomotiveCreditRepository;
-import br.com.neurotech.challenge.service.client.ClientService;
 import jakarta.validation.Valid;
 
 @Service
 public class AutomotiveCreditServiceImpl implements AutomotiveCreditService {
 
-  private ClientService clientService;
   private AutomotiveCreditRepository automotiveCreditRepository;
 
-  public AutomotiveCreditServiceImpl(ClientService clientService,
-      AutomotiveCreditRepository automotiveCreditRepository) {
-    this.clientService = clientService;
+  public AutomotiveCreditServiceImpl(AutomotiveCreditRepository automotiveCreditRepository) {
     this.automotiveCreditRepository = automotiveCreditRepository;
   }
 

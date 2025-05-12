@@ -76,7 +76,7 @@ public class GlobalErrorHandler {
   @ExceptionHandler(HttpMessageNotReadableException.class)
   public ResponseEntity<ErrorResponse> handleHttpMessageNotReadable(HttpMessageNotReadableException ex) {
     ErrorResponse error = new ErrorResponse(
-        "Malformed JSON request",
+        ex.getMessage(),
         "MALFORMED_JSON",
         HttpStatus.BAD_REQUEST.value(),
         LocalDateTime.now().toString());
@@ -98,7 +98,7 @@ public class GlobalErrorHandler {
   @ExceptionHandler(Exception.class)
   public ResponseEntity<ErrorResponse> handleAllUncaught(Exception ex, WebRequest request) {
     ErrorResponse error = new ErrorResponse(
-        ex.getMessage(),
+        "Internal server error",
         "INTERNAL_ERROR",
         HttpStatus.INTERNAL_SERVER_ERROR.value(),
         LocalDateTime.now().toString());
