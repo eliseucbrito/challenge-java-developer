@@ -8,10 +8,9 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import br.com.neurotech.challenge.entity.AutomotiveCredit.AutomotiveCredit;
 import br.com.neurotech.challenge.factories.TestCreditRuleFactory;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;
@@ -27,8 +26,8 @@ class CreditRuleTest {
   @Test
   void shouldPassValidationWhenAllAttributesAreValid() {
 
-    CreditRule creditRule = TestCreditRuleFactory.createValid();
-    Set<ConstraintViolation<CreditRule>> violations = validator.validate(creditRule);
+    AutomotiveCredit creditRule = TestCreditRuleFactory.createValid();
+    Set<ConstraintViolation<AutomotiveCredit>> violations = validator.validate(creditRule);
 
     assertTrue(violations.isEmpty(), "Valid credit rule should not have constraint violations");
   }
@@ -36,9 +35,9 @@ class CreditRuleTest {
   @Test
   void shouldFailValidationWhenAttributesAreInvalid() {
 
-    CreditRule creditRule = TestCreditRuleFactory.createInvalid();
+    AutomotiveCredit creditRule = TestCreditRuleFactory.createInvalid();
 
-    Set<ConstraintViolation<CreditRule>> violations = validator.validate(creditRule);
+    Set<ConstraintViolation<AutomotiveCredit>> violations = validator.validate(creditRule);
     Set<String> violatedProperties = violations.stream()
         .map(v -> v.getPropertyPath().toString())
         .collect(Collectors.toSet());
@@ -53,11 +52,11 @@ class CreditRuleTest {
   @Test
   void shouldPassValidationWhenMaxValuesAreNull() {
 
-    CreditRule creditRule = TestCreditRuleFactory.createValid();
+    AutomotiveCredit creditRule = TestCreditRuleFactory.createValid();
     creditRule.setMaxIncome(null);
     creditRule.setMaxAge(null);
 
-    Set<ConstraintViolation<CreditRule>> violations = validator.validate(creditRule);
+    Set<ConstraintViolation<AutomotiveCredit>> violations = validator.validate(creditRule);
 
     Set<String> violatedProperties = violations.stream()
         .map(v -> v.getPropertyPath().toString())
@@ -70,10 +69,10 @@ class CreditRuleTest {
   @Test
   void shouldFailValidationWhenMinAgeIsNull() {
 
-    CreditRule creditRule = TestCreditRuleFactory.createValid();
+    AutomotiveCredit creditRule = TestCreditRuleFactory.createValid();
     creditRule.setMinAge(null);
 
-    Set<ConstraintViolation<CreditRule>> violations = validator.validate(creditRule);
+    Set<ConstraintViolation<AutomotiveCredit>> violations = validator.validate(creditRule);
 
     Set<String> violatedProperties = violations.stream()
         .map(v -> v.getPropertyPath().toString())
@@ -85,11 +84,11 @@ class CreditRuleTest {
   @Test
   void shouldFailValidationWhenIncomeRangeIsInvalid() {
 
-    CreditRule creditRule = TestCreditRuleFactory.createValid();
+    AutomotiveCredit creditRule = TestCreditRuleFactory.createValid();
     creditRule.setMinIncome(5000.0);
     creditRule.setMaxIncome(1000.0);
 
-    Set<ConstraintViolation<CreditRule>> violations = validator.validate(creditRule);
+    Set<ConstraintViolation<AutomotiveCredit>> violations = validator.validate(creditRule);
     boolean hasIncomeRangeViolation = violations.stream()
         .anyMatch(v -> v.getMessage().contains("minimum income must be less than"));
 
@@ -99,11 +98,11 @@ class CreditRuleTest {
   @Test
   void shouldFailValidationWhenAgeRangeIsInvalid() {
 
-    CreditRule creditRule = TestCreditRuleFactory.createValid();
+    AutomotiveCredit creditRule = TestCreditRuleFactory.createValid();
     creditRule.setMinAge(65);
     creditRule.setMaxAge(18);
 
-    Set<ConstraintViolation<CreditRule>> violations = validator.validate(creditRule);
+    Set<ConstraintViolation<AutomotiveCredit>> violations = validator.validate(creditRule);
     boolean hasAgeRangeViolation = violations.stream()
         .anyMatch(v -> v.getMessage().contains("minimum age must be less than"));
 
@@ -113,13 +112,13 @@ class CreditRuleTest {
   @Test
   void shouldPassValidationWhenRangesAreEqual() {
 
-    CreditRule creditRule = TestCreditRuleFactory.createValid();
+    AutomotiveCredit creditRule = TestCreditRuleFactory.createValid();
     creditRule.setMinIncome(1000.0);
     creditRule.setMaxIncome(1000.0);
     creditRule.setMinAge(30);
     creditRule.setMaxAge(30);
 
-    Set<ConstraintViolation<CreditRule>> violations = validator.validate(creditRule);
+    Set<ConstraintViolation<AutomotiveCredit>> violations = validator.validate(creditRule);
 
     Set<String> violatedProperties = violations.stream()
         .map(v -> v.getPropertyPath().toString())
@@ -131,31 +130,13 @@ class CreditRuleTest {
     assertFalse(violatedProperties.contains("maxAge"), "Should not have maxAge violation");
   }
 
-  @ParameterizedTest
-  @ValueSource(doubles = { 0.0, -1.0, -100.0 })
-  void shouldFailValidationWhenMinIncomeIsNotPositive(double invalidIncome) {
-
-    CreditRule creditRule = TestCreditRuleFactory.createValid();
-    creditRule.setMinIncome(invalidIncome);
-
-    Set<ConstraintViolation<CreditRule>> violations = validator.validate(creditRule);
-    boolean hasMinIncomeViolation = violations.stream()
-        .anyMatch(v -> v.getPropertyPath().toString().equals("minIncome"));
-
-    assertTrue(hasMinIncomeViolation, "Should detect non-positive minIncome");
-    assertEquals("The minimum income must be positive",
-        violations.stream()
-            .filter(v -> v.getPropertyPath().toString().equals("minIncome"))
-            .findFirst().get().getMessage());
-  }
-
   @Test
   void shouldFailValidationWhenVehicleModelIsNull() {
 
-    CreditRule creditRule = TestCreditRuleFactory.createValid();
+    AutomotiveCredit creditRule = TestCreditRuleFactory.createValid();
     creditRule.setVehicleModel(null);
 
-    Set<ConstraintViolation<CreditRule>> violations = validator.validate(creditRule);
+    Set<ConstraintViolation<AutomotiveCredit>> violations = validator.validate(creditRule);
 
     assertEquals("The vehicle model must not be null",
         violations.stream()
@@ -166,7 +147,7 @@ class CreditRuleTest {
   @Test
   void testIsIncomeRangeValidMethod() {
 
-    CreditRule creditRule = new CreditRule();
+    AutomotiveCredit creditRule = new AutomotiveCredit();
 
     creditRule.setMinIncome(1000.0);
     creditRule.setMaxIncome(null);
@@ -185,7 +166,7 @@ class CreditRuleTest {
   @Test
   void testIsAgeRangeValidMethod() {
 
-    CreditRule creditRule = new CreditRule();
+    AutomotiveCredit creditRule = new AutomotiveCredit();
 
     creditRule.setMinAge(null);
     creditRule.setMaxAge(65);

@@ -1,10 +1,7 @@
 package br.com.neurotech.challenge.entity;
 
 import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.MappedSuperclass;
 import jakarta.validation.constraints.AssertTrue;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
@@ -18,17 +15,11 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode(callSuper = true)
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity(name = "credit_rules")
-public class CreditRule extends Auditable {
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;
+@MappedSuperclass
+public abstract class CreditDetails extends Auditable {
 
-  @NotNull(message = "The vehicle model must not be null")
-  @Column(name = "vehicle_model", nullable = false)
-  private VehicleModel vehicleModel;
-
-  @Positive(message = "The minimum income must be positive")
+  @NotNull(message = "The minimum income must not be null")
+  @Min(value = 0, message = "The minimum income must be greater or equal to 0")
   @Column(name = "min_income", nullable = false)
   private Double minIncome;
 
